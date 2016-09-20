@@ -1,4 +1,4 @@
-package com.yangmao;
+package com.ppca;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +17,7 @@ import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 public class LoadYelpToKafka {
-	String fileDir = "/mnt/scratch/yg79/simulatedDataSource/review_2010_order/part-r-00000";
+	String fileDir = "/mnt/scratch/ppca/simulatedDataSource/review_2010_order/part-r-00000";
 	
 	public void run() {
 		try {
@@ -30,7 +30,7 @@ public class LoadYelpToKafka {
 			props.put("request.required.acks", "1");
 
 			//setup Producer Config using this prop
-			String TOPIC = "yuan_yelp_reviews";
+			String TOPIC = "yelp_reviews";
 			ProducerConfig config = new ProducerConfig(props);
 
 			

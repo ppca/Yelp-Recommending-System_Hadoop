@@ -1,4 +1,4 @@
-package com.yangmao;
+package com.ppca;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -117,11 +117,11 @@ public class YelpTopology {
 		@Override
 		public void execute(Tuple input, BasicOutputCollector collector) {
 			try {
-				HTableInterface table = hConnection.getTable("yuan_yelp_review_changing");
+				HTableInterface table = hConnection.getTable("yelp_review_changing");
 				
 				Get get_entry_exists = new Get(Bytes.toBytes(input.getStringByField("review_id")));
 				
-				HTableInterface business_table = hConnection.getTable("yuan_yelp_business_wrc_hbase_sync_2");
+				HTableInterface business_table = hConnection.getTable("yelp_business_wrc_hbase_sync_2");
 				Increment inc = new Increment(Bytes.toBytes(input.getStringByField("business_id")));
 				inc.addColumn(Bytes.toBytes("business"), Bytes.toBytes("review_count_new"), 1L);
 				try{
@@ -188,11 +188,11 @@ public class YelpTopology {
 		ZkHosts zkHosts = new ZkHosts(zookeeperHost);
 		
 		
-		SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "yuan_yelp_reviews", "/yuan_yelp_reviews","test_id");
+		SpoutConfig kafkaConfig = new SpoutConfig(zkHosts, "yelp_reviews", "/yelp_reviews","test_id");
 		kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 		kafkaConfig.startOffsetTime = kafka.api.OffsetRequest.EarliestTime();
 		kafkaConfig.zkServers = zkServers;
-		kafkaConfig.zkRoot = "/yuan_yelp_reviews";
+		kafkaConfig.zkRoot = "/yelp_reviews";
 		kafkaConfig.zkPort = 2181;
 		kafkaConfig.forceFromStart = true;
 		KafkaSpout kafkaSpout = new KafkaSpout(kafkaConfig);

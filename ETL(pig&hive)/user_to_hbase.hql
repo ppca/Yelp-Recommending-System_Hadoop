@@ -37,5 +37,3 @@ WITH SERDEPROPERTIES ("hbase.columns.mapping" = "user:funny_votes,user:useful_vo
 TBLPROPERTIES ("hbase.table.name" = "yelp_user_hive_sync");
 
 OVERWRITE INTO TABLE yelp_user_hive_sync2 SELECT * FROM yelp_user_hive_sync;
-
-/usr/hdp/2.4.0.0-169/hive/lib

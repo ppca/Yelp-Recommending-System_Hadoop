@@ -1,4 +1,4 @@
-review_raw = LOAD 'hdfs:///apps/hive/warehouse/yuan_yelp_review_not_orc' USING PigStorage('\u0001') 
+review_raw = LOAD 'hdfs:///apps/hive/warehouse/yelp_review_not_orc' USING PigStorage('\u0001') 
     AS (review_id:chararray, 
         business_id:chararray, 
         user_id:chararray,
@@ -22,8 +22,8 @@ review_2011_order = ORDER review_2011 BY review_date ASC;
 review_2012_order = ORDER review_2012 BY review_date ASC;
 review_2013_order = ORDER review_2013 BY review_date ASC;
 
-STORE review_before_2010 INTO 'hdfs:///user/xiaomaogy/output/review_before_2010' USING PigStorage('\u0001');
-STORE review_2010_order INTO 'hdfs:///user/xiaomaogy/output/review_2010_order' USING PigStorage('\u0001');
-STORE review_2011_order INTO 'hdfs:///user/xiaomaogy/output/review_2011_order' USING PigStorage('\u0001');
-STORE review_2012_order INTO 'hdfs:///user/xiaomaogy/output/review_2012_order' USING PigStorage('\u0001');
-STORE review_2013_order INTO 'hdfs:///user/xiaomaogy/output/review_2013_order' USING PigStorage('\u0001');
+STORE review_before_2010 INTO 'hdfs:///user/ppca/output/review_before_2010' USING PigStorage('\u0001');
+STORE review_2010_order INTO 'hdfs:///user/ppca/output/review_2010_order' USING PigStorage('\u0001');
+STORE review_2011_order INTO 'hdfs:///user/ppca/output/review_2011_order' USING PigStorage('\u0001');
+STORE review_2012_order INTO 'hdfs:///user/ppca/output/review_2012_order' USING PigStorage('\u0001');
+STORE review_2013_order INTO 'hdfs:///user/ppca/output/review_2013_order' USING PigStorage('\u0001');

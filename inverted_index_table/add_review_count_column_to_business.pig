@@ -1,13 +1,13 @@
 --load all the business data
 
-business_row = LOAD 'hdfs:///apps/hive/warehouse/yuan_yelp_business_not_orc/part-m-00000' USING PigStorage('\u0001')
+business_row = LOAD 'hdfs:///apps/hive/warehouse/yelp_business_not_orc/part-m-00000' USING PigStorage('\u0001')
 as (business_id:chararray, name:chararray, categories:chararray, review_count_recorded:int, stars:double, open:boolean, 
     full_address:chararray, city:chararray, state:chararray,
     longitude:chararray, latitude:chararray);
 
-business_review_count_w_active_user = LOAD 'hdfs:///user/xiaomaogy/output/temp1' USING PigStorage('\u0001') as (business_id:chararray, review_count_active_user:int, active_user_count:int);
+business_review_count_w_active_user = LOAD 'hdfs:///user/ppca/output/temp1' USING PigStorage('\u0001') as (business_id:chararray, review_count_active_user:int, active_user_count:int);
 
-business_review_count = LOAD 'hdfs:///user/xiaomaogy/output/temp2' USING PigStorage('\u0001') as (business_id:chararray, review_count_all_user:int, all_user_count:int);
+business_review_count = LOAD 'hdfs:///user/ppca/output/temp2' USING PigStorage('\u0001') as (business_id:chararray, review_count_all_user:int, all_user_count:int);
 
 --combine the review counts into business table
 
@@ -47,4 +47,4 @@ business_w_active_user_row::latitude AS latitude,
 business_w_active_user_row::review_count_active_user AS review_count_active_user,
 business_review_count::review_count_all_user AS review_count_all_user;
 
-STORE business_w_both_user_row INTO 'hdfs:///user/xiaomaogy/output/business_w_active_review_count' USING PigStorage('\u0001');
+STORE business_w_both_user_row INTO 'hdfs:///user/ppca/output/business_w_active_review_count' USING PigStorage('\u0001');

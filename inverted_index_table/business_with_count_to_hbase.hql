@@ -1,4 +1,4 @@
-CREATE EXTERNAL TABLE yuan_yelp_business_wrc_not_orc_3(
+CREATE EXTERNAL TABLE yelp_business_wrc_not_orc_3(
     business_id String,
     name String,
     categories String,
@@ -11,15 +11,15 @@ CREATE EXTERNAL TABLE yuan_yelp_business_wrc_not_orc_3(
     longitude String,
     latitude String
     )
-COMMENT 'intermediate non orc table, DATA ABOUT businesss on yelp, added with calculated review counts by all users and active users(> 10 reviews)'
+COMMENT 'intermediate non orc business table, with review counts and active users(> 10 reviews)'
 ROW FORMAT
 DELIMITED FIELDS TERMINATED BY '\001'
 LINES TERMINATED BY '\n';
 
--- LOAD DATA INPATH 'hdfs:///user/xiaomaogy/output/business_w_active_review_count' OVERWRITE INTO TABLE yuan_yelp_business_wrc_not_orc_2;
-LOAD DATA INPATH 'hdfs:///apps/hive/warehouse/yuan_yelp_business_wrc_not_orc' OVERWRITE INTO TABLE yuan_yelp_business_wrc_not_orc_2;
+-
+LOAD DATA INPATH 'hdfs:///apps/hive/warehouse/yelp_business_wrc_not_orc' OVERWRITE INTO TABLE yelp_business_wrc_not_orc_2;
 
-CREATE TABLE yuan_yelp_business_wrc_hbase_sync_2(
+CREATE TABLE yelp_business_wrc_hbase_sync_2(
     business_id String,
     name String,
     categories String,
@@ -37,7 +37,7 @@ CREATE TABLE yuan_yelp_business_wrc_hbase_sync_2(
 STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
 with SERDEPROPERTIES ("hbase.columns.mapping" = ":key, business:name, business:categories, business:review_count, 
     business:stars, business:open, business:full_address, business:city, business:state, business:longitude, business:latitude, business:review_count_active_user, business:review_count_all_user")
-TBLPROPERTIES ("hbase.table.name" = "yuan_yelp_business_wrc_hbase_sync_2");
+TBLPROPERTIES ("hbase.table.name" = "yelp_business_wrc_hbase_sync_2");
 
-INSERT OVERWRITE TABLE yuan_yelp_business_wrc_hbase_sync_2 SELECT * FROM yuan_yelp_business_wrc_not_orc_2;
+INSERT OVERWRITE TABLE yelp_business_wrc_hbase_sync_2 SELECT * FROM yelp_business_wrc_not_orc_2;
 
